@@ -16,7 +16,7 @@ public class Transaction {
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
-    private Integer id;
+    private Integer transactionId;
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player playerId;
@@ -25,12 +25,12 @@ public class Transaction {
     @Column
     private TransactionType transactionType;
 
-    public Integer getId() {
-        return id;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
     public Player getPlayerId() {

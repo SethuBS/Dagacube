@@ -33,21 +33,49 @@ public class Loader implements CommandLineRunner {
             Player player = new Player();
             player.setPlayerId(1);
             player.setUserName("Sethu");
-            player.setBalance(10d);
+            player.setBalance(0d);
 
             playerRepository.save(player);
 
-            Transaction transaction = new Transaction();
-            transaction.setAmount(10d);
-            transaction.setPlayerId(player);
-            transaction.setTransactionType(TransactionType.WIN);
+            Transaction transaction1 = new Transaction();
 
-            if(transaction.getTransactionType() == TransactionType.WAGER){
-                value = transaction.getAmount() - player.getBalance();
-            } else if(transaction.getTransactionType() == TransactionType.WIN){
-                value = transaction.getAmount() + player.getBalance();
+
+            transaction1.setTransactionId(1);
+            transaction1.setAmount(5000d);
+            transaction1.setPlayerId(player);
+            transaction1.setTransactionType(TransactionType.WIN);
+
+            if(transaction1.getTransactionType() == TransactionType.WAGER){
+                if(value < player.getBalance()){
+                    value = 0d;
+                } else {
+                    value = player.getBalance() - transaction1.getAmount();
+                }
+            } else if(transaction1.getTransactionType() == TransactionType.WIN){
+                value = player.getBalance() + transaction1.getAmount();
             }
 
+            transactionRepository.save(transaction1);
+            player.setBalance(value);
+            playerRepository.save(player);
+
+            Transaction transaction2 = new Transaction();
+            transaction2.setTransactionId(1);
+            transaction2.setAmount(300d);
+            transaction2.setPlayerId(player);
+            transaction2.setTransactionType(TransactionType.WAGER);
+
+            if(transaction2.getTransactionType() == TransactionType.WAGER){
+                if(value < player.getBalance()){
+                    value = 0d;
+                } else {
+                    value =  player.getBalance() - transaction2.getAmount();
+                }
+            } else if(transaction2.getTransactionType() == TransactionType.WIN){
+                value =  player.getBalance() + transaction2.getAmount();
+            }
+
+            transactionRepository.save(transaction2);
             player.setBalance(value);
             playerRepository.save(player);
         }

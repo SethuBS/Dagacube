@@ -70,9 +70,9 @@ public class GameController {
                 transaction.setAmount(amount);
                 transactionRepository.save(transaction);
 
-                Optional<Transaction> transaction1 = transactionRepository.findById(transaction.getId());
+                Optional<Transaction> transaction1 = transactionRepository.findById(transaction.getTransactionId());
 
-                objectMap.put("transactionId",transaction1.get().getId());
+                objectMap.put("transactionId",transaction1.get().getTransactionId());
                 objectMap.put("balance", player.get().getBalance());
 
                 return new ResponseEntity(objectMap, HttpStatus.OK);
@@ -88,12 +88,15 @@ public class GameController {
 
         List<Player> players = (List<Player>) playerRepository.findAll();
 
+
         List<Transaction> transactionList = (List<Transaction>) transactionRepository.findAll();
 
-        List<Transaction> transactions = new ArrayList<>();
 
         Map<String, Object> objectMap = new HashMap<>();
 
+        List<Transaction> transactions = new ArrayList<>();
+
+        int count = 1;
 
         for (Player playerInstance: players){
 
@@ -101,14 +104,19 @@ public class GameController {
                Player player = playerInstance;
                 for(Transaction transaction: transactionList){
                     if(player.equals(transaction.getPlayerId())){
-                        /*objectMap.put("transactionId",transaction.getId());
-                        objectMap.put("transactionType", transaction.getTransactionType());
-                        objectMap.put("amount", transaction.getAmount());*/
                         transactions.add(transaction);
+                        if(count >=10){
+                            break;
+                        }
+                        count++;
                     }
                 }
 
-                return new ResponseEntity(transactions, HttpStatus.OK);
+                Collections.reverse(transactions);
+
+                objectMap.put("json_data", transactions);
+
+                return new ResponseEntity(objectMap, HttpStatus.OK);
             }
         }
 
