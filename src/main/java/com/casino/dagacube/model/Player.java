@@ -1,33 +1,22 @@
 package com.casino.dagacube.model;
 
-
-import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name="player")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Player {
 
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
-    private Integer playerId;
+    private java.lang.Integer playerId;
     @Column
     private String userName;
     @Column
     private Double balance;
 
-    public Integer getPlayerId() {
+    public java.lang.Integer getPlayerId() {
         return playerId;
-    }
-
-    public void setPlayerId(Integer playerId) {
-        this.playerId = playerId;
     }
 
     public String getUserName() {

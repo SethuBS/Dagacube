@@ -31,16 +31,13 @@ public class Loader implements CommandLineRunner {
 
             Double value =0d;
             Player player = new Player();
-            player.setPlayerId(1);
             player.setUserName("Sethu");
-            player.setBalance(0d);
+            player.setBalance(2500d);
 
             playerRepository.save(player);
 
             Transaction transaction1 = new Transaction();
 
-
-            transaction1.setTransactionId(1);
             transaction1.setAmount(5000d);
             transaction1.setPlayerId(player);
             transaction1.setTransactionType(TransactionType.WIN);
@@ -55,29 +52,9 @@ public class Loader implements CommandLineRunner {
                 value = player.getBalance() + transaction1.getAmount();
             }
 
+            player.setBalance(value);
+            playerRepository.save(player);
             transactionRepository.save(transaction1);
-            player.setBalance(value);
-            playerRepository.save(player);
-
-            Transaction transaction2 = new Transaction();
-            transaction2.setTransactionId(1);
-            transaction2.setAmount(300d);
-            transaction2.setPlayerId(player);
-            transaction2.setTransactionType(TransactionType.WAGER);
-
-            if(transaction2.getTransactionType() == TransactionType.WAGER){
-                if(value < player.getBalance()){
-                    value = 0d;
-                } else {
-                    value =  player.getBalance() - transaction2.getAmount();
-                }
-            } else if(transaction2.getTransactionType() == TransactionType.WIN){
-                value =  player.getBalance() + transaction2.getAmount();
-            }
-
-            transactionRepository.save(transaction2);
-            player.setBalance(value);
-            playerRepository.save(player);
         }
 
 

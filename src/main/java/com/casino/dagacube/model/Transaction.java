@@ -1,16 +1,9 @@
 package com.casino.dagacube.model;
 
-
-import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "transaction")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Transaction {
 
     @Id
@@ -27,10 +20,6 @@ public class Transaction {
 
     public Integer getTransactionId() {
         return transactionId;
-    }
-
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
     }
 
     public Player getPlayerId() {
@@ -55,5 +44,14 @@ public class Transaction {
 
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", amount=" + amount +
+                ", transactionType=" + transactionType +
+                '}';
     }
 }
