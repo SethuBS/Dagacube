@@ -113,11 +113,6 @@ public class GameController {
 
                 objectMap.put("transactions_array", transactions);
 
-                for(Map.Entry<String, Object> map: objectMap.entrySet()){
-                    System.out.println(map.getValue());
-                }
-
-
                 return new ResponseEntity(objectMap, HttpStatus.OK);
             }
         }
