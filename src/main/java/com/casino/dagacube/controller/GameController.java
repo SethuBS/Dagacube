@@ -26,7 +26,7 @@ public class GameController {
     CustomRepository customRepository;
 
     @GetMapping("player/{id}")
-    public ResponseEntity<Player> getBalance(@PathVariable java.lang.Integer id){
+    public ResponseEntity<Player> getBalance(@PathVariable Integer id){
 
         Optional<Player> player = playerRepository.findById(id);
 
@@ -41,7 +41,7 @@ public class GameController {
     }
 
     @PostMapping("player/{playerId}/{amount}/{type}")
-    public ResponseEntity update(@PathVariable java.lang.Integer playerId, @PathVariable Double amount, @PathVariable TransactionType type) {
+    public ResponseEntity update(@PathVariable Integer playerId, @PathVariable Double amount, @PathVariable TransactionType type) {
 
         Optional<Player> player = playerRepository.findById(playerId);
 
